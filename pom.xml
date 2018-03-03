@@ -15,6 +15,12 @@
             <email>jeferson.passosf@gmail.com</email>
             <id>jeferson.passosf</id>
         </developer>
+        
+        <developer>
+            <name>Yuri Lucena Yasuda</name>
+            <email>yu_sam97@hotmail.com</email>
+            <id>yuri.lyasuda</id>
+        </developer>
     </developers>
     
     <properties>
