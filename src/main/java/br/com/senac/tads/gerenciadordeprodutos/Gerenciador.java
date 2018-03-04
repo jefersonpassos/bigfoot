@@ -107,6 +107,22 @@ public class Gerenciador {
             stmt.setInt(1, id);
 
             int status = stmt.executeUpdate();
+        }
+    }
+    
+    public void editar(int id, Produto prod) throws ClassNotFoundException, SQLException { 
+        
+        try (Connection conn = obterConexao();
+                PreparedStatement stmt = conn.prepareStatement(
+                        "update produto set nome=(?),descricao=(?), preco_compra=(?), preco_venda=(?), quantidade=(?) where ID = (?)")) {
+            stmt.setInt(6, id);
+            stmt.setString(1, prod.getNome());
+            stmt.setString(2, prod.getDescricao());
+            stmt.setFloat(3, prod.getPrecoCompra());
+            stmt.setFloat(4, prod.getPrecoVenda());
+            stmt.setInt(5, prod.getQuantidade());
+
+            int status = stmt.executeUpdate();
             System.out.println("Status: " + status);
         }
     }
