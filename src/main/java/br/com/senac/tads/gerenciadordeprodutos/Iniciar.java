@@ -32,20 +32,22 @@ public class Iniciar {
             } catch (Exception e) {
                 System.out.println("Ocorreu um erro, tente novamente");
             }
-            List<Produto> listaprod = new ArrayList<Produto>(); 
-            switch (opcao){
-                case 1: listaprod=gerenciador.listar();
-                    for(int i=0;i<listaprod.size();i++){
+            List<Produto> listaprod = new ArrayList<Produto>();
+            switch (opcao) {
+                case 1:
+                    listaprod = gerenciador.listar();
+                    for (int i = 0; i < listaprod.size(); i++) {
                         Produto prod = listaprod.get(i);
                         if (prod != null) {
-                            System.out.println("Nome: "+prod.getNome());
-                            System.out.println("Descricao: "+prod.getDescricao());
-                            System.out.println("Preco de Compra: "+prod.PrecoCompra());
-                            System.out.println("Preco de Venda: "+prod.PrecoVenda());
-                            System.out.println("Quantidade de produtos: "+prod.getQuantidade());
-                            }
+                            System.out.println("\nID: " + prod.getId());
+                            System.out.println("Nome: " + prod.getNome());
+                            System.out.println("Descricao: " + prod.getDescricao());
+                            System.out.println("Preco de Compra: " + prod.getPrecoCompra());
+                            System.out.println("Preco de Venda: " + prod.getPrecoVenda());
+                            System.out.println("Quantidade de produtos: " + prod.getQuantidade());
+                        }
                     }
-                        break;
+                    break;
                 case 2:
                     gerenciador.incluir();
                     break;
