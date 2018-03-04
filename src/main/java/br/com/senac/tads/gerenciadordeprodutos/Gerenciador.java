@@ -26,41 +26,6 @@ public class Gerenciador {
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
      */
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        // TODO code application logic here
-
-        Gerenciador gerenciador = new Gerenciador();
-        int opcao = 1;
-        System.out.println("Gerenciador de Produtos Iniciado");
-        
-        while (opcao!=0){
-            System.out.println("\nDigite a opcao da operacao que deseja executar:");
-            System.out.println("1 - Listar os produtos");
-            System.out.println("2 - Incluir produto");
-            System.out.println("3 - Excluir produto");
-            System.out.println("4 - Atualizar os produtos");
-            System.out.println("0 - Fechar Programa\n");
-            
-            Scanner sc = new Scanner(System.in);
-            opcao = (Integer.parseInt(sc.nextLine()));
-            
-            switch (opcao){
-                case 1: gerenciador.listar();
-                        break;
-                case 2: gerenciador.incluir();
-                        break;
-                case 3: gerenciador.excluir();
-                        break;
-                case 4: gerenciador.excluir();
-                        break;
-                case 0: System.out.println("Programa Finalizado");
-                        break;
-                default: System.out.println("Opcao não é válida, Insira uma nova opcao");
-        
-            }
-        }
-    }
-
     private Connection obterConexao() throws ClassNotFoundException, SQLException {
         // 1A) Declarar o driver JDBC de acordo com o Banco de dados usado
         Class.forName("com.mysql.jdbc.Driver");
@@ -88,6 +53,7 @@ public class Gerenciador {
                 Date dtCadastro = resultados.getDate("dt_cadastro");
                 Produto produto = new Produto();
                 produto.setId(id);
+                produto.setNome(nome);
                 produto.setDescricao(descricao);
                 produto.setPrecoVenda(precoVenda);
                 produto.setPrecoCompra(precoCompra);
@@ -144,5 +110,5 @@ public class Gerenciador {
             System.out.println("Status: " + status);
         }
     }
-
+    
 }
