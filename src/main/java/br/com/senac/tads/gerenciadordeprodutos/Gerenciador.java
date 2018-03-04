@@ -67,51 +67,76 @@ public class Gerenciador {
     }
 
     public void incluir() throws ClassNotFoundException, SQLException {
-
         Scanner in = new Scanner(System.in);
-        System.out.println("Digite o nome do produto:");
-        String nome = in.nextLine();
-        System.out.println("Digite descricao:");
-        String descricao = in.nextLine();
-        System.out.println("Digite o preco de compra:");
-        float preco_compra = (Float.parseFloat(in.nextLine()));
-        System.out.println("Digite o preco de venda:");
-        float preco_venda = (Float.parseFloat(in.nextLine()));
-        System.out.println("Digite a quantidade:");
-        int quantidade = (Integer.parseInt(in.nextLine()));
-
-        try (Connection conn = obterConexao();
-                PreparedStatement stmt = conn.prepareStatement(
-                        "INSERT INTO PRODUTO (nome, descricao, preco_compra, preco_venda, quantidade, dt_cadastro ) VALUES (?,?,?,?,?,?)")) {
-            stmt.setString(1, nome);
-            stmt.setString(2, descricao);
-            stmt.setFloat(3, preco_compra);
-            stmt.setFloat(4, preco_venda);
-            stmt.setInt(5, quantidade);
-            stmt.setTimestamp(6, new java.sql.Timestamp(java.util.Calendar.getInstance().getTimeInMillis()));
-
-            int status = stmt.executeUpdate();
-            System.out.println("Status: " + status);
+        System.out.println("\nDigite a opcao da operacao que deseja executar:");
+        System.out.println("1 - Incluir Produto no Banco de Dados");
+        System.out.println("2 - Incluir Produto em uma Categoria");
+        int opcaoIncluir = 1;
+        try {
+            opcaoIncluir = (Integer.parseInt(in.nextLine()));
+        } catch (Exception e) {
+            System.out.println("Ocorreu um erro, tente novamente");
         }
+        switch (opcaoIncluir) {
+            case 1:
+                System.out.println("Digite o nome do produto:");
+                String nome = in.nextLine();
+                System.out.println("Digite descricao:");
+                String descricao = in.nextLine();
+                System.out.println("Digite o preco de compra:");
+                float preco_compra = (Float.parseFloat(in.nextLine()));
+                System.out.println("Digite o preco de venda:");
+                float preco_venda = (Float.parseFloat(in.nextLine()));
+                System.out.println("Digite a quantidade:");
+                int quantidade = (Integer.parseInt(in.nextLine()));
+
+                try (Connection conn = obterConexao();
+                        PreparedStatement stmt = conn.prepareStatement(
+                                "INSERT INTO PRODUTO (nome, descricao, preco_compra, preco_venda, quantidade, dt_cadastro ) VALUES (?,?,?,?,?,?)")) {
+                    stmt.setString(1, nome);
+                    stmt.setString(2, descricao);
+                    stmt.setFloat(3, preco_compra);
+                    stmt.setFloat(4, preco_venda);
+                    stmt.setInt(5, quantidade);
+                    stmt.setTimestamp(6, new java.sql.Timestamp(java.util.Calendar.getInstance().getTimeInMillis()));
+
+                    int status = stmt.executeUpdate();
+                    System.out.println("Status: " + status);
+                }
+            case 2:
+                System.out.println("Digite o ID do Produto:");
+                int idProduto = (Integer.parseInt(in.nextLine()));
+                System.out.println("Digite o ID da Categoria:");
+                int idCategoria = (Integer.parseInt(in.nextLine()));
+
+                try (Connection conn = obterConexao();
+                        PreparedStatement stmt = conn.prepareStatement(
+                                "INSERT INTO PRODUTOBD.PRODUTO_CATEGORIA(id_produto, id_categoria) VALUES (?,?)")) {
+                    stmt.setInt(1, idProduto);
+                    stmt.setInt(2, idCategoria);
+                }
+            break;
+            default:
+                System.out.println("Opcao não é válida, Insira uma nova opcao");
+        }
+
     }
-    
+
     public void excluir() throws ClassNotFoundException, SQLException {
 
         Scanner in = new Scanner(System.in);
         System.out.println("Digite o id do produto:");
         int id = (Integer.parseInt(in.nextLine()));
-        
+
         try (Connection conn = obterConexao();
                 PreparedStatement stmt = conn.prepareStatement(
                         "DELETE FROM PRODUTO WHERE ID = (?)")) {
             stmt.setInt(1, id);
-
-            int status = stmt.executeUpdate();
         }
     }
-    
-    public void editar(int id, Produto prod) throws ClassNotFoundException, SQLException { 
-        
+
+    public void editar(int id, Produto prod) throws ClassNotFoundException, SQLException {
+
         try (Connection conn = obterConexao();
                 PreparedStatement stmt = conn.prepareStatement(
                         "update produto set nome=(?),descricao=(?), preco_compra=(?), preco_venda=(?), quantidade=(?) where ID = (?)")) {
@@ -126,5 +151,5 @@ public class Gerenciador {
             System.out.println("Status: " + status);
         }
     }
-    
+
 }
