@@ -6,17 +6,29 @@
 
 package br.com.senac.tads.gerenciadordeprodutos;
 
+import java.util.Date;
+
 /**
  *
  * @author p0636192
  */
 public class Produto {
-    
+
+    private long id;
     private String nome;
     private String descricao;
     private float precoCompra;
     private float precoVenda;
     private Integer quantidade;
+    private Date dtCadastro;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -58,4 +70,12 @@ public class Produto {
         this.quantidade = quantidade;
     }
     
+     public Date getDtCadastro() {
+        return dtCadastro;
+    }
+
+    public void setDtCadastro(Date dtCadastro) {
+        this.dtCadastro = dtCadastro;
+    }
+
 }
