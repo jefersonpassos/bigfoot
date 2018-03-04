@@ -55,7 +55,26 @@ public class Iniciar {
                     gerenciador.excluir();
                     break;
                 case 4:
-                    gerenciador.excluir();
+                    Produto ProdEditar = new Produto();
+                    System.out.println("digite o id do produto:");
+                    int id = (Integer.parseInt(sc.nextLine()));
+                    System.out.println("digite o nome do produto:");
+                    String nome = sc.nextLine();
+                    ProdEditar.setNome(nome);
+                    System.out.println("digite a descricao do produto:");
+                    String descricao = sc.nextLine();
+                    ProdEditar.setDescricao(descricao);
+                    System.out.println("digite o preco de venda do produto:");
+                    float precoVenda = (Float.parseFloat(sc.nextLine()));
+                    ProdEditar.setPrecoVenda(precoVenda);
+                    System.out.println("digite o preco de compra do produto:");
+                    float precoCompra = (Float.parseFloat(sc.nextLine()));
+                    ProdEditar.setPrecoCompra(precoCompra);
+                    System.out.println("digite quantidade disponivel do produto:");
+                    int quantidade = (Integer.parseInt(sc.nextLine()));
+                    ProdEditar.setQuantidade(quantidade);
+                    
+                    gerenciador.editar(id, ProdEditar);
                     break;
                 case 0:
                     System.out.println("\nPrograma Finalizado");
