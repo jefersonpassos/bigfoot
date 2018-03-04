@@ -10,7 +10,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -68,7 +70,8 @@ public class Gerenciador {
         return conn;
     }
 
-    public void listar() throws ClassNotFoundException, SQLException {
+    public List<Produto> listar() throws ClassNotFoundException, SQLException {
+        List<Produto> listaProdutos = new ArrayList<Produto>();
 
         try (Connection conn = obterConexao();
                 PreparedStatement stmt = conn.prepareStatement(
@@ -79,19 +82,21 @@ public class Gerenciador {
                 long id = resultados.getLong("id");
                 String nome = resultados.getString("nome");
                 String descricao = resultados.getString("descricao");
-                float preco_venda = resultados.getFloat("preco_venda");
-                float preco_compra = resultados.getFloat("preco_compra");
+                float precoVenda = resultados.getFloat("preco_venda");
+                float precoCompra = resultados.getFloat("preco_compra");
                 int quantidade = resultados.getInt("quantidade");
-                Date dt_cadastro = resultados.getDate("dt_cadastro");
-                System.out.println("\nid           | " + id);
-                System.out.println("nome         | " + nome);
-                System.out.println("descricao    | " + descricao);
-                System.out.println("preco_venda  | " + preco_venda);
-                System.out.println("preco_compra | " + preco_compra);
-                System.out.println("quantidade   | " + quantidade);
-                System.out.println("data cadastro| " + dt_cadastro);
+                Date dtCadastro = resultados.getDate("dt_cadastro");
+                Produto produto = new Produto();
+                produto.setId(id);
+                produto.setDescricao(descricao);
+                produto.setPrecoVenda(precoVenda);
+                produto.setPrecoCompra(precoCompra);
+                produto.setQuantidade(quantidade);
+                produto.setDtCadastro(dtCadastro);
 
+                listaProdutos.add(produto);
             }
+            return listaProdutos;
         }
     }
 
